@@ -1,0 +1,88 @@
+@import '../../variables.scss';
+
+.root{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+.container{
+    width: $layout-content-width;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.titleWrapper{
+    width: 100%;
+    height: 80px;
+    background-color: $color-background-gray;
+}
+.title{
+    width: $layout-content-width;
+    line-height: 100px;
+    margin: 0 auto;
+    padding-left: 20px;
+    font-size: $font-size-large;
+}
+
+/* Make sure the contentWidth always is exacly the width of the number of cells we want */
+$cellWidth: 260px;
+@define-mixin contentWidthForCellColumns $columns {
+    width: calc($cellWidth * $columns);
+}
+/* For the media selectors below we make set the number of colums based on windowWidth >= cellWidth * 1.5 */
+/* Unfortunately we can't use math operators inside our media selectors, so we have them hardcoded for now.  */
+@media screen and (min-width: 390px){
+    .container{
+        @mixin contentWidthForCellColumns 1;
+    }
+    .title{
+        @mixin contentWidthForCellColumns 1;
+    }
+}
+@media screen and (min-width: 650px){
+    .container{
+        @mixin contentWidthForCellColumns 2;
+    }
+    .title{
+        @mixin contentWidthForCellColumns 2;
+    }
+}
+@media screen and (min-width: 910px){
+    .container{
+        @mixin contentWidthForCellColumns 3;
+    }
+    .title{
+        @mixin contentWidthForCellColumns 3;
+    }
+}
+@media screen and (min-width: 1170px){
+    .container{
+        @mixin contentWidthForCellColumns 4;
+    }
+    .title{
+        @mixin contentWidthForCellColumns 4;
+    }
+}
+@media screen and (max-width: $screen-mobile){
+    .container{
+        flex-wrap: nowrap;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .titleWrapper{
+        height: 60px;
+    }
+    .titleContainer{
+        margin-left: 10px;
+    }
+    .title{
+        width: 100%;
+        line-height: 60px;
+        padding-left: 0px;
+        font-size: $font-mobile-size-large;
+    }
+}
